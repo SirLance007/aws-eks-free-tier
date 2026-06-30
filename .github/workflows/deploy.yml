@@ -74,11 +74,11 @@ jobs:
 
           if [ "$ACTION" = "plan" ]; then
             echo "Running Terragrunt Plan..."
-            terragrunt plan
+            terragrunt plan --terragrunt-non-interactive
           elif [ "$ACTION" = "apply" ]; then
             echo "Running Terragrunt Apply..."
-            terragrunt apply -auto-approve
+            terragrunt apply --terragrunt-non-interactive -auto-approve
           elif [ "$ACTION" = "destroy" ]; then
             echo "Running Terragrunt Destroy..."
-            terragrunt destroy -auto-approve
+            terragrunt destroy --terragrunt-non-interactive -auto-approve
           fi
