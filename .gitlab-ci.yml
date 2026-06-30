@@ -1,0 +1,61 @@
+stages:
+  - infra-preview
+  - infra-update
+  - infra-destroy
+
+variables:
+  VAULT_ADDR: "https://canteen-clutter-headscarf.ngrok-free.dev"
+  VAULT_SECRET_PATH: "kv/resource-provisioning/cloud"
+  CSP: "aws"
+  CLUSTER_TYPE: "k8s"
+  TF_STATE_BASE_ADDRESS: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state"
+  IMAGE_TAG: "latest"
+
+image: hashicorp/terraform:1.9.0
+
+default:
+  before_script:
+    - chmod +x .gitlab/ci/scripts/* || true
+    - apk add --no-cache curl jq bash
+
+.vault-auth:
+  id_tokens:
+    VAULT_JWT_TOKEN:
+      aud: "https://gitlab.com"
+
+# Job 1: Run dry-run planning
+resource-plan:
+  extends: .vault-auth
+  stage: infra-preview
+  script:
+    - .gitlab/ci/scripts/infra-preview.sh
+  artifacts:
+    reports:
+      dotenv: build.env
+    paths:
+      - build.env
+      - "deployments/**/plan.cache"
+
+# Job 2: Run deploy (Requires manual click in GitLab)
+resource-deploy:
+  extends: .vault-auth
+  stage: infra-update
+  rules:
+    - when: manual
+  script:
+    - .gitlab/ci/scripts/infra-update.sh
+  needs:
+    - job: resource-plan
+      artifacts: true
+
+# Job 3: Run destroy (Requires manual click in GitLab)
+resource-destroy:
+  extends: .vault-auth
+  stage: infra-destroy
+  rules:
+    - when: manual
+  script:
+    - .gitlab/ci/scripts/infra-destroy.sh
+  needs:
+    - job: resource-plan
+      artifacts: true

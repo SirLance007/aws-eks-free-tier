@@ -1,0 +1,17 @@
+# Terragrunt/Terraform cache and plugins
+.terragrunt-cache/
+.terraform/
+.terraform.lock.hcl
+
+# Local state files
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Vault secrets files generated during pipeline
+secrets.json
+/tmp/aws-creds.env
+aws-creds.env
+plan.cache
+plan.json
+build.env
