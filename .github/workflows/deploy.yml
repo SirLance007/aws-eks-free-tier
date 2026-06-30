@@ -43,6 +43,7 @@ jobs:
           role: github-actions
           path: jwt-github
           method: jwt
+          jwtAudience: "https://github.com/SirLance007"
           secrets: |
             aws/creds/admin-role access_key | AWS_ACCESS_KEY_ID ;
             aws/creds/admin-role secret_key | AWS_SECRET_ACCESS_KEY
