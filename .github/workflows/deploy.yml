@@ -53,6 +53,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.9.0
+          terraform_wrapper: false
 
       # 4. Setup Terragrunt
       - name: Setup Terragrunt
