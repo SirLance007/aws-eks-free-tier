@@ -48,6 +48,10 @@ jobs:
             aws/creds/admin-role access_key | AWS_ACCESS_KEY_ID ;
             aws/creds/admin-role secret_key | AWS_SECRET_ACCESS_KEY
 
+      # 2.5. Sleep to allow AWS IAM keys to propagate globally (resolves S3 403 InvalidAccessKeyId)
+      - name: Wait for IAM Propagation
+        run: sleep 15
+
       # 3. Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
