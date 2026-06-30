@@ -71,9 +71,6 @@ jobs:
           fi
 
           cd ${{ env.DEPLOYMENT_PATH }}
-          
-          # Set mock state address for practice
-          export TF_STATE_BASE_ADDRESS="${{ env.VAULT_ADDR }}/v1/secret/data/state"
 
           if [ "$ACTION" = "plan" ]; then
             echo "Running Terragrunt Plan..."
