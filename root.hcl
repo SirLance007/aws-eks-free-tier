@@ -1,6 +1,5 @@
 remote_state {
   backend = "s3"
-  disable_init_prompt = true # Automatically create S3 bucket and DynamoDB table
   generate = {
     path      = "backend.tf"
     if_exists = "overwrite_terragrunt"
