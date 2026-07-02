@@ -1,0 +1,7 @@
+encryptionsalt: v1:fru1lGBqFJw=:v1:a1KPtn3Mx1QDTl4A:i4Muts5CgsU7N3tHmpiG3FBfcLAj+A==
+config:
+  aws:region: us-east-1
+  pulumi-eks:enableTeleport: "true"
+  pulumi-eks:teleportProxyAddr: patient-glade.trial.teleport.sh:443
+  pulumi-eks:teleportJoinToken:
+    secure: v1:pw9Tp5s8dtIy6YP+:C51Kj5D14mfzfSeit/QgLvyPpIu2mfFTP5Zc5qKJAcIBWkc8UvD6JuyabNa6f6E=
